@@ -15,22 +15,6 @@ public class Main {
                     String[] arr = str.trim().split(" ");
                     return new Employee(arr[0], arr[1]);
                 }).toList();
-
-        System.out.println("Size of collection: " + employees.size());
-
-        System.out.println("\nPrint employees using foreach loop:");
-        employees.forEach(System.out::println);
-
-        System.out.println("\nPrint employees using standard loop:");
-        for (Employee employee : employees) {
-            System.out.println(employee);
-        }
-
-        System.out.println("\nPrint employees using Iterator interface:");
-        for (Iterator<Employee> iterator = employees.iterator(); iterator.hasNext(); ) {
-            Employee next = iterator.next();
-            System.out.println(next);
-        }
     }
 
     private static Set<String> readFile() {
