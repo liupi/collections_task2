@@ -1,7 +1,47 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+        List<Employee> employees = readFile().stream()
+                .filter(e -> !e.isBlank())
+                .map(str -> {
+                    String[] arr = str.trim().split(" ");
+                    return new Employee(arr[0], arr[1]);
+                }).toList();
 
+        System.out.println("Size of collection: " + employees.size());
+
+        System.out.println("\nPrint employees using foreach loop:");
+        employees.forEach(System.out::println);
+
+        System.out.println("\nPrint employees using standard loop:");
+        for (Employee employee : employees) {
+            System.out.println(employee);
+        }
+
+        System.out.println("\nPrint employees using Iterator interface:");
+        for (Iterator<Employee> iterator = employees.iterator(); iterator.hasNext(); ) {
+            Employee next = iterator.next();
+            System.out.println(next);
+        }
+    }
+
+    private static Set<String> readFile() {
+        try (BufferedReader br = new BufferedReader(new FileReader("resources/employees.txt"))) {
+            var list = br.lines().toList();
+            System.out.println("Size of list: " + list.size());
+            HashSet<String> s = new HashSet<>(list);
+            System.out.println("Size of set: " + s.size());
+            return s;
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading file.");
+        }
     }
 }
